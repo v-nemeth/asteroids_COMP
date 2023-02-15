@@ -12,6 +12,8 @@ public class Entity implements Serializable {
     private float[] shapeX = new float[4];
     private float[] shapeY = new float[4];
     private float radius;
+
+    private float[] color = new float[]{1,1,1,1};
     private Map<Class, EntityPart> parts;
     
     public Entity() {
@@ -55,4 +57,6 @@ public class Entity implements Serializable {
     }
 
     public void setShapeY(float[] shapeY) {this.shapeY = shapeY;}
+    public float[] getColor(){return this.color;}
+    public void setColor(float[] color){this.color = color;}
 }

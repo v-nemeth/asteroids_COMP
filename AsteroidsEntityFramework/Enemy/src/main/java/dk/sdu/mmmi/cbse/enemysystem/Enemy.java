@@ -1,7 +1,6 @@
 package dk.sdu.mmmi.cbse.enemysystem;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 
 import java.util.Random;
 
@@ -13,6 +12,10 @@ public class Enemy extends Entity {
     private boolean direction;
     private boolean turn;
     private boolean accelerate;
+
+    public Enemy(float[] color){
+        super.setColor(color);
+    }
 
     public int updateEnemy() {
         Random rand = new Random();
