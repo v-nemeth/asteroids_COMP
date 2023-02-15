@@ -36,7 +36,7 @@ public class AsteroidPlugin implements IGamePluginService {
         switch(side.nextInt(4)){
             case 0:
                 x = value.nextFloat(gameData.getDisplayWidth());
-                y = 1;
+                y = 0;
                 break;
             case 1:
                 x = value.nextFloat(gameData.getDisplayWidth());
@@ -54,7 +54,7 @@ public class AsteroidPlugin implements IGamePluginService {
 
 
         Random rand = new Random();
-        float radians = rand.nextFloat(3.1415f);
+        float radians = rand.nextFloat(2*3.1415f);
         float[] color = new float[]{0.8f,0.2f,0.2f,1};
 
         Entity asteroid = new Asteroid(color);
