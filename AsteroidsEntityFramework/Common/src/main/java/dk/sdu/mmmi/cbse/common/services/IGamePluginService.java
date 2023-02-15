@@ -20,7 +20,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 * Parameters: GameData and World
  * GameData and World must be provided in order for the program to remove an Object from the world
 * Preconditions: A world must have been created, and the game must be running
-* Postconditions: ???
+* Postconditions: The game has not ended
  **/
 public interface IGamePluginService {
     void start(GameData gameData, World world);
