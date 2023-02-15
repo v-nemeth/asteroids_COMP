@@ -1,4 +1,4 @@
-package dk.sdu.mmmi.cbse.enemysystem;
+package dk.sdu.mmmi.cbse.asteroidsystem;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -10,35 +10,23 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
-import java.util.Random;
-
 
 /**
  *
  * @author jcs
  */
-public class EnemyControlSystem implements IEntityProcessingService {
+public class AsteroidControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
 
-        for (Entity enemy : world.getEntities(Enemy.class)) {
+        for (Entity enemy : world.getEntities(Asteroid.class)) {
 
             PositionPart positionPart = enemy.getPart(PositionPart.class);
             MovingPart movingPart = enemy.getPart(MovingPart.class);
 
 
-            if (gameData.getGameTime()%50 == 0) ((Enemy) enemy).updateEnemy();
-
-            if (((Enemy) enemy).getTurn()) {
-                movingPart.setLeft(((Enemy) enemy).getDirection());
-                movingPart.setRight(!((Enemy) enemy).getDirection());
-            } else {
-                movingPart.setLeft(false);
-                movingPart.setRight(false);
-            }
-
-            movingPart.setUp(((Enemy) enemy).getAccelerate());
+            movingPart.setUp(true);
             
             
             movingPart.process(gameData, enemy);
