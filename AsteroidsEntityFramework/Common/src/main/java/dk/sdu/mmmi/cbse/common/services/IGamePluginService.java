@@ -6,6 +6,7 @@ import dk.sdu.mmmi.cbse.common.data.World;
 
 
 /**
+ * Hello
 * Operation: start(GameData gameData, World world)
  * The start() method is called when a Plugin should be instantiated in the world
  * This is where all the attributes should be set and initial methods should be called
