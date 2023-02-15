@@ -10,9 +10,11 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.enemysystem.EnemyControlSystem;
+import dk.sdu.mmmi.cbse.enemysystem.EnemyPlugin;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
-import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
-import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
+import dk.sdu.mmmi.cbse.enemysystem.PlayerControlSystem;
+import dk.sdu.mmmi.cbse.enemysystem.PlayerPlugin;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +46,16 @@ public class Game
         );
 
         IGamePluginService playerPlugin = new PlayerPlugin();
+        IGamePluginService enemyPlugin = new EnemyPlugin();
 
         IEntityProcessingService playerProcess = new PlayerControlSystem();
         entityPlugins.add(playerPlugin);
         entityProcessors.add(playerProcess);
+
+        IEntityProcessingService enemyProcess = new EnemyControlSystem();
+        entityPlugins.add(enemyPlugin);
+        entityProcessors.add(enemyProcess);
+
         // Lookup all Game Plugins using ServiceLoader
         for (IGamePluginService iGamePlugin : entityPlugins) {
             iGamePlugin.start(gameData, world);
@@ -72,6 +80,7 @@ public class Game
 
     private void update() {
         // Update
+        gameData.incrementGameTime();
         for (IEntityProcessingService entityProcessorService : entityProcessors) {
             entityProcessorService.process(gameData, world);
         }

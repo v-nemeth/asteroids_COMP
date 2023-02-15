@@ -10,6 +10,8 @@ public class GameData {
     private float delta;
     private int displayWidth;
     private int displayHeight;
+
+    private int gameTime = 0;
     private final GameKeys keys = new GameKeys();
     private List<Event> events = new CopyOnWriteArrayList<>();
 
@@ -62,5 +64,11 @@ public class GameData {
         }
 
         return r;
+    }
+    public int getGameTime(){
+        return gameTime;
+    }
+    public void incrementGameTime(){
+        gameTime++;
     }
 }

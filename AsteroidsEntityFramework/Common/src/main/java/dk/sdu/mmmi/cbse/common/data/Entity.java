@@ -54,7 +54,5 @@ public class Entity implements Serializable {
         return shapeY;
     }
 
-    public void setShapeY(float[] shapeY) {
-        this.shapeY = shapeY;
-    }
+    public void setShapeY(float[] shapeY) {this.shapeY = shapeY;}
 }
