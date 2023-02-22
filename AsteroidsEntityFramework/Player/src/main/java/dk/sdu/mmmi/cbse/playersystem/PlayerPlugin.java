@@ -6,6 +6,7 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 
 public class PlayerPlugin implements IGamePluginService {
@@ -36,6 +37,7 @@ public class PlayerPlugin implements IGamePluginService {
         Entity playerShip = new Player();
         playerShip.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         playerShip.add(new PositionPart(x, y, radians));
+        playerShip.add(new ShootingPart());
         
         return playerShip;
     }
