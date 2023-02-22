@@ -12,12 +12,15 @@ import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
+import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.util.SPILocator;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyControlSystem;
 import dk.sdu.mmmi.cbse.enemysystem.EnemyPlugin;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
 import dk.sdu.mmmi.cbse.playersystem.PlayerControlSystem;
 import dk.sdu.mmmi.cbse.playersystem.PlayerPlugin;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Game
@@ -55,9 +58,11 @@ public class Game
         entityPlugins.add(playerPlugin);
         entityProcessors.add(playerProcess);
 
-        IEntityProcessingService enemyProcess = new EnemyControlSystem();
-        entityPlugins.add(enemyPlugin);
-        entityProcessors.add(enemyProcess);
+
+
+        //IEntityProcessingService enemyProcess = new EnemyControlSystem();
+        //entityPlugins.add(enemyPlugin);
+        //entityProcessors.add(enemyProcess);
 
         IEntityProcessingService asteroidProcess = new AsteroidControlSystem();
         entityPlugins.add(asteroidPlugin);
@@ -67,6 +72,12 @@ public class Game
         for (IGamePluginService iGamePlugin : entityPlugins) {
             iGamePlugin.start(gameData, world);
         }
+
+        Collection<? extends IGamePluginService> gameplugins = getPluginServices();
+        for (IGamePluginService iGamePlugin : gameplugins) {
+            iGamePlugin.start(gameData, world);
+        }
+
     }
 
     @Override
@@ -127,5 +138,18 @@ public class Game
 
     @Override
     public void dispose() {
+    }
+
+
+    private Collection<? extends IGamePluginService> getPluginServices() {
+        return SPILocator.locateAll(IGamePluginService.class);
+    }
+
+    private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
+        return SPILocator.locateAll(IEntityProcessingService.class);
+    }
+
+    private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
+        return SPILocator.locateAll(IPostEntityProcessingService.class);
     }
 }
