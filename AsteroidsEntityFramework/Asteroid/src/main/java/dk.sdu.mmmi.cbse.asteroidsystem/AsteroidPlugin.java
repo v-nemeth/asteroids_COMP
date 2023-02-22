@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.asteroidsystem;
 
+import dk.sdu.mmmi.cbse.Asteroid;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -14,7 +15,7 @@ public class AsteroidPlugin implements IGamePluginService {
     @Override
     public void start(GameData gameData, World world) {
         ArrayList asteroids = new ArrayList<Entity>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 3; i++) {
             Entity asteroid = createAsteroid(gameData);
             world.addEntity(asteroid);
         }
@@ -24,8 +25,8 @@ public class AsteroidPlugin implements IGamePluginService {
     private Entity createAsteroid(GameData gameData) {
 
         float deacceleration = 10;
-        float acceleration = 50;
-        float maxSpeed = 150;
+        float acceleration = 25;
+        float maxSpeed = 50;
         float rotationSpeed = 5;
 
         float x = gameData.getDisplayWidth();
