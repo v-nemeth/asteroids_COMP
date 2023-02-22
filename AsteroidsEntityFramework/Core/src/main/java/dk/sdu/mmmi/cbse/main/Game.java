@@ -30,8 +30,6 @@ public class Game
     private ShapeRenderer sr;
 
     private final GameData gameData = new GameData();
-    private List<IEntityProcessingService> entityProcessors = new ArrayList<>();
-    private List<IGamePluginService> entityPlugins = new ArrayList<>();
     private World world = new World();
 
     @Override
@@ -50,29 +48,7 @@ public class Game
                 new GameInputProcessor(gameData)
         );
 
-        IGamePluginService playerPlugin = new PlayerPlugin();
-        IGamePluginService enemyPlugin = new EnemyPlugin();
-        IGamePluginService asteroidPlugin = new AsteroidPlugin();
-
-        IEntityProcessingService playerProcess = new PlayerControlSystem();
-        entityPlugins.add(playerPlugin);
-        entityProcessors.add(playerProcess);
-
-
-
-        //IEntityProcessingService enemyProcess = new EnemyControlSystem();
-        //entityPlugins.add(enemyPlugin);
-        //entityProcessors.add(enemyProcess);
-
-        IEntityProcessingService asteroidProcess = new AsteroidControlSystem();
-        entityPlugins.add(asteroidPlugin);
-        entityProcessors.add(asteroidProcess);
-
         // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : entityPlugins) {
-            iGamePlugin.start(gameData, world);
-        }
-
         Collection<? extends IGamePluginService> gameplugins = getPluginServices();
         for (IGamePluginService iGamePlugin : gameplugins) {
             iGamePlugin.start(gameData, world);
@@ -98,7 +74,8 @@ public class Game
     private void update() {
         // Update
         gameData.incrementGameTime();
-        for (IEntityProcessingService entityProcessorService : entityProcessors) {
+
+        for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
     }
