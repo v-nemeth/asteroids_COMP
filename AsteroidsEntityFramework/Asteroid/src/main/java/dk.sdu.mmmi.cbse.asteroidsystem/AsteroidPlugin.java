@@ -55,9 +55,8 @@ public class AsteroidPlugin implements IGamePluginService {
 
         Random rand = new Random();
         float radians = rand.nextFloat(2*3.1415f);
-        float[] color = new float[]{0.8f,0.2f,0.2f,1};
 
-        Entity asteroid = new Asteroid(color);
+        Entity asteroid = new Asteroid();
         asteroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         asteroid.add(new PositionPart(x, y, radians));
 

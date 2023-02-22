@@ -37,17 +37,18 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         float y = positionPart.getY();
         float radians = positionPart.getRadians();
 
-        shapex[0] = (float) (x + Math.cos(radians) * 16);
-        shapey[0] = (float) (y + Math.sin(radians) * 16);
 
-        shapex[1] = (float) (x + Math.cos(radians - 8 * 3.1815f / 16) * 16);
-        shapey[1] = (float) (y + Math.sin(radians - 8 * 3.1185f / 16) * 16);
+        shapex[0] = (float) (x + Math.cos(radians) * ((Asteroid)entity).get_random_values()[0]);
+        shapey[0] = (float) (y + Math.sin(radians) * ((Asteroid)entity).get_random_values()[0]);
 
-        shapex[2] = (float) (x + Math.cos(radians + 3.1815f) * 16);
-        shapey[2] = (float) (y + Math.sin(radians + 3.1815f) * 16);
+        shapex[1] = (float) (x + Math.cos(radians - 8 * 3.1815f / 16) * ((Asteroid)entity).get_random_values()[1]);
+        shapey[1] = (float) (y + Math.sin(radians - 8 * 3.1185f / 16) * ((Asteroid)entity).get_random_values()[1]);
 
-        shapex[3] = (float) (x + Math.cos(radians + 8 * 3.1815f / 16) * 16);
-        shapey[3] = (float) (y + Math.sin(radians + 8 * 3.1815f / 16) * 16);
+        shapex[2] = (float) (x + Math.cos(radians + 3.1815f) * ((Asteroid)entity).get_random_values()[2]);
+        shapey[2] = (float) (y + Math.sin(radians + 3.1815f) * ((Asteroid)entity).get_random_values()[2]);
+
+        shapex[3] = (float) (x + Math.cos(radians + 8 * 3.1815f / 16) * ((Asteroid)entity).get_random_values()[3]);
+        shapey[3] = (float) (y + Math.sin(radians + 8 * 3.1815f / 16) * ((Asteroid)entity).get_random_values()[3]);
 
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
