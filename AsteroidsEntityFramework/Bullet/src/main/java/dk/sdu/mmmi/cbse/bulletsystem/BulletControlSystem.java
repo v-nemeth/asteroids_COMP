@@ -37,6 +37,10 @@ public class BulletControlSystem implements IEntityProcessingService {
 
 
         for (Entity bullet : world.getEntities(Bullet.class)) {
+            if(((Bullet)bullet).isDead()){
+                world.removeEntity(bullet);
+                continue;
+            }
             PositionPart positionPart = bullet.getPart(PositionPart.class);
             MovingPart movingPart = bullet.getPart(MovingPart.class);
 
