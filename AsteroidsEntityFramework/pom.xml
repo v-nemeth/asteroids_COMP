@@ -14,6 +14,8 @@
         <module>CommonEnemy</module>
         <module>CommonAsteroid</module>
         <module>CommonPlayer</module>
+        <module>Bullet</module>
+        <module>CommonBullet</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
