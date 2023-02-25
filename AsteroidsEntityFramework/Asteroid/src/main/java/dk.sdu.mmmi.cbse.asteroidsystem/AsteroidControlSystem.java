@@ -32,7 +32,7 @@ public class AsteroidControlSystem implements IEntityProcessingService {
                     System.out.println("REMOVED ASTEROID");
                     world.removeEntity(asteroid);
                 } else {
-                    int size = (int) Math.floor(((Asteroid)asteroid).getSize()/2);
+                    int size = (int) Math.floor(((Asteroid)asteroid).getSize() * 3/5);
                     float x = positionPart.getX();
                     float y = positionPart.getY();
                     int life = lifePart.getLife()-1;
