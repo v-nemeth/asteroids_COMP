@@ -32,8 +32,12 @@ public class AsteroidControlSystem implements IEntityProcessingService {
                     System.out.println("REMOVED ASTEROID");
                     world.removeEntity(asteroid);
                 } else {
-                    world.addEntity(createSmallerAsteroids());
-                    System.out.println("TODO: CREATED SMALLER ASTEROIDS");
+                    int size = (int) Math.floor(((Asteroid)asteroid).getSize()/2);
+                    float x = positionPart.getX();
+                    float y = positionPart.getY();
+                    int life = lifePart.getLife()-1;
+                    world.addEntity(createSmallerAsteroid(size, x, y, life));
+                    world.addEntity(createSmallerAsteroid(size, x, y, life));
                     world.removeEntity(asteroid);
                 }
             }
@@ -42,9 +46,19 @@ public class AsteroidControlSystem implements IEntityProcessingService {
         }
     }
 
-    private Entity createSmallerAsteroids() {
+    private Entity createSmallerAsteroid(int size, float x, float y, int life) {
+        float deacceleration = 10;
+        float acceleration = 25;
+        float maxSpeed = 50;
+        float rotationSpeed = 5;
 
-        return new Entity();
+        Entity asteroid = new Asteroid(size);
+        asteroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
+        Random rand = new Random();
+        asteroid.add(new PositionPart(x, y, rand.nextFloat(2*3.1415f)));
+        asteroid.add(new LifePart(life));
+
+        return asteroid;
     }
 
 
