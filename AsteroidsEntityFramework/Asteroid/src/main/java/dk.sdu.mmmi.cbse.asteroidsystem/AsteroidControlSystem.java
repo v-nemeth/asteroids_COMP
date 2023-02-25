@@ -4,6 +4,7 @@ import dk.sdu.mmmi.cbse.Asteroid;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
@@ -19,16 +20,33 @@ public class AsteroidControlSystem implements IEntityProcessingService {
 
             PositionPart positionPart = asteroid.getPart(PositionPart.class);
             MovingPart movingPart = asteroid.getPart(MovingPart.class);
+            LifePart lifePart = asteroid.getPart(LifePart.class);
 
             movingPart.setUp(true);
-
-
             movingPart.process(gameData, asteroid);
             positionPart.process(gameData, asteroid);
-
             updateShape(asteroid);
+
+            if(lifePart.isIsHit()){
+                if(lifePart.getLife() <= 0 ){
+                    System.out.println("REMOVED ASTEROID");
+                    world.removeEntity(asteroid);
+                } else {
+                    world.addEntity(createSmallerAsteroids());
+                    System.out.println("TODO: CREATED SMALLER ASTEROIDS");
+                    world.removeEntity(asteroid);
+                }
+            }
+            lifePart.process(gameData,asteroid);
+
         }
     }
+
+    private Entity createSmallerAsteroids() {
+
+        return new Entity();
+    }
+
 
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
