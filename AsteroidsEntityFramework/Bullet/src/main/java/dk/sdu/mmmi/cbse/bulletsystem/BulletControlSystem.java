@@ -1,7 +1,7 @@
 package dk.sdu.mmmi.cbse.bulletsystem;
 
 import dk.sdu.mmmi.cbse.Bullet;
-import dk.sdu.mmmi.cbse.Player;
+//import dk.sdu.mmmi.cbse.Player;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -22,7 +22,7 @@ public class BulletControlSystem implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
 
-        for(Entity player : world.getEntities(Player.class)) {
+        for(Entity player : world.getEntities()) {
             ShootingPart shootingPart = player.getPart(ShootingPart.class);
             PositionPart playerPositionPart = player.getPart(PositionPart.class);
             if (shootingPart == null) continue;
