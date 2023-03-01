@@ -29,7 +29,6 @@ public class AsteroidControlSystem implements IEntityProcessingService {
 
             if(lifePart.isIsHit()){
                 if(lifePart.getLife() <= 0 ){
-                    System.out.println("REMOVED ASTEROID");
                     world.removeEntity(asteroid);
                 } else {
                     int size = (int) Math.floor(((Asteroid)asteroid).getSize() * 3/5);
