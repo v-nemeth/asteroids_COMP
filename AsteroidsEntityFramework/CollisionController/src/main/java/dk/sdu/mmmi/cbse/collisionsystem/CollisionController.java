@@ -1,8 +1,8 @@
 package dk.sdu.mmmi.cbse.collisionsystem;
 
-import dk.sdu.mmmi.cbse.Asteroid;
-import dk.sdu.mmmi.cbse.Bullet;
-import dk.sdu.mmmi.cbse.Player;
+import dk.sdu.mmmi.cbse.asteroid.Asteroid;
+import dk.sdu.mmmi.cbse.bullet.Bullet;
+import dk.sdu.mmmi.cbse.player.Player;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;

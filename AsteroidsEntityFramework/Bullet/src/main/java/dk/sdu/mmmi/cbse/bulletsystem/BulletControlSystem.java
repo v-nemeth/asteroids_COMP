@@ -1,7 +1,7 @@
 package dk.sdu.mmmi.cbse.bulletsystem;
 
-import dk.sdu.mmmi.cbse.Bullet;
-//import dk.sdu.mmmi.cbse.Player;
+import dk.sdu.mmmi.cbse.bullet.Bullet;
+//import dk.sdu.mmmi.cbse.player.Player;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -9,8 +9,6 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-
-import java.util.Random;
 
 
 /**
