@@ -72,6 +72,10 @@ public class Game
         for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
             entityProcessorService.process(gameData, world);
         }
+
+        for (IPostEntityProcessingService postEntityProcessingService : getPostEntityProcessingServices()) {
+            postEntityProcessingService.process(gameData, world);
+        }
     }
 
     private void draw() {
