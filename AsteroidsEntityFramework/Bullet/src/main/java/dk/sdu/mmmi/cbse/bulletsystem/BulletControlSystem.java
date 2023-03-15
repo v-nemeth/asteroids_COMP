@@ -5,6 +5,7 @@ import dk.sdu.mmmi.cbse.bullet.Bullet;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
@@ -41,6 +42,14 @@ public class BulletControlSystem implements IEntityProcessingService {
             }
             PositionPart positionPart = bullet.getPart(PositionPart.class);
             MovingPart movingPart = bullet.getPart(MovingPart.class);
+            LifePart lifePart = bullet.getPart(LifePart.class);
+
+            if(lifePart.isIsHit()) {
+                if (lifePart.getLife() <= 0) {
+                    world.removeEntity(bullet);
+                }
+            }
+            lifePart.process(gameData, bullet);
 
             movingPart.setUp(true);
             
@@ -84,6 +93,7 @@ public class BulletControlSystem implements IEntityProcessingService {
         Entity bullet = new Bullet();
         bullet.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
         bullet.add(new PositionPart(x, y, radians));
+        bullet.add(new LifePart(0));
 
         return bullet;
     }

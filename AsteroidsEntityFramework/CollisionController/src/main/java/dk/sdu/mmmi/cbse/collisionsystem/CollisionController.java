@@ -14,8 +14,26 @@ public class CollisionController implements IPostEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
+        // CHECK ENTITY COLLISION
+        for (Entity entity : world.getEntities()){
+            for (Entity entity2 : world.getEntities()){
+                if (collides(entity, entity2)){
+                    if (entity.getID().equals(entity2.getID()) || entity.getClass().equals(entity2.getClass())){
+                        continue;
+                    }
+
+                    LifePart lifePart1 = entity.getPart(LifePart.class);
+                    LifePart lifePart2 = entity2.getPart(LifePart.class);
+
+                    if (!(lifePart1 == null)) lifePart1.setIsHit(true);
+                    if (!(lifePart2 == null)) lifePart2.setIsHit((true));
+
+                }
+            }
+        }
+
         //CHECK PLAYER COLLISION
-        for(Entity asteroid : world.getEntities(Asteroid.class)){
+/*        for(Entity asteroid : world.getEntities(Asteroid.class)){
             for(Entity player : world.getEntities(Player.class)){
                 if(collides(asteroid,player)){
                     world.removeEntity(player);
@@ -31,7 +49,7 @@ public class CollisionController implements IPostEntityProcessingService {
                     world.removeEntity(bullet);
                 }
             }
-        }
+        }*/
 
     }
 
