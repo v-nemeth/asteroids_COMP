@@ -1,11 +1,8 @@
 package dk.sdu.mmmi.cbse.collisionsystem;
 
-import dk.sdu.mmmi.cbse.asteroid.Asteroid;
-import dk.sdu.mmmi.cbse.bullet.Bullet;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
-import dk.sdu.mmmi.cbse.player.Player;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -31,26 +28,6 @@ public class CollisionController implements IPostEntityProcessingService {
                 }
             }
         }
-
-        //CHECK PLAYER COLLISION
-/*        for(Entity asteroid : world.getEntities(Asteroid.class)){
-            for(Entity player : world.getEntities(Player.class)){
-                if(collides(asteroid,player)){
-                    world.removeEntity(player);
-                }
-            }
-        }
-        //CHECK BULLET COLLISION
-        for(Entity bullet : world.getEntities(Bullet.class)){
-            for(Entity asteroid : world.getEntities(Asteroid.class)){
-                LifePart asteroidLifePart = asteroid.getPart(LifePart.class);
-                if(collides(asteroid,bullet)){
-                    asteroidLifePart.setIsHit(true);
-                    world.removeEntity(bullet);
-                }
-            }
-        }*/
-
     }
 
     public Boolean collides(Entity entity, Entity entity2){
