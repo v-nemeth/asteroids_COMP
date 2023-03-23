@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Asteroid</artifactId>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>dk.sdu.mmmi.cbse</groupId>
@@ -24,10 +25,5 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-    </properties>
 
 </project>

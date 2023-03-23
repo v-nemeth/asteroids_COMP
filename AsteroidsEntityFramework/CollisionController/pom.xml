@@ -10,6 +10,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>CollisionController</artifactId>
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>dk.sdu.mmmi.cbse</groupId>
@@ -17,29 +19,5 @@
             <version>1.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
-            <artifactId>CommonAsteroid</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
-            <artifactId>CommonPlayer</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>dk.sdu.mmmi.cbse</groupId>
-            <artifactId>CommonBullet</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
-
-    <properties>
-        <maven.compiler.source>18</maven.compiler.source>
-        <maven.compiler.target>18</maven.compiler.target>
-    </properties>
-
 </project>
