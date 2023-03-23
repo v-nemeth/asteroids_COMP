@@ -22,7 +22,17 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
-    
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>dk.sdu.mmmi.cbse</groupId>
+                <artifactId>shadedlibgdx</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.badlogicgames.gdx</groupId>
