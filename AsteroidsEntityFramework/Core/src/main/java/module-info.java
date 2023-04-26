@@ -2,7 +2,6 @@ module Core {
     requires Common;
     requires CommonEnemy;
     requires CommonBullet;
-    requires CommonAsteroid;
     requires java.desktop;
     requires com.badlogic.gdx;
     requires spring.context;

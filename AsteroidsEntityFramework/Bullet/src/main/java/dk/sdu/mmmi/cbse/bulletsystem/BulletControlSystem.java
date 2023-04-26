@@ -11,11 +11,6 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
-
-/**
- *
- * @author jcs
- */
 public class BulletControlSystem implements IEntityProcessingService {
 
     @Override
