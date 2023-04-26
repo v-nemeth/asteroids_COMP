@@ -1,7 +1,7 @@
 package dk.sdu.mmmi.cbse.playersystem;
 
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
-import dk.sdu.mmmi.cbse.player.Player;
+import dk.sdu.mmmi.cbse.common.entities.Player;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
@@ -12,10 +12,6 @@ import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 
 import static dk.sdu.mmmi.cbse.common.data.GameKeys.*;
 
-/**
- *
- * @author jcs
- */
 public class PlayerControlSystem implements IEntityProcessingService {
 
     @Override
