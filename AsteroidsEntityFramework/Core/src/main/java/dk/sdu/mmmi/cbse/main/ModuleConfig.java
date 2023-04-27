@@ -1,6 +1,7 @@
 package dk.sdu.mmmi.cbse.main;
 
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.services.IEventListener;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +18,7 @@ public class ModuleConfig {
 
     @Bean
     public Game game(){
-        return new Game(gamePluginServices(), entityProcessingServiceList(), postEntityProcessingServices());
+        return new Game(gamePluginServices(), entityProcessingServiceList(), postEntityProcessingServices(),  getEventListeners());
     }
 
     @Bean
@@ -33,5 +34,10 @@ public class ModuleConfig {
     @Bean
     public List<IPostEntityProcessingService> postEntityProcessingServices() {
         return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+    }
+
+    @Bean
+    public List<IEventListener> getEventListeners() {
+        return ServiceLoader.load(IEventListener.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }

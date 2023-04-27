@@ -1,7 +1,9 @@
 package dk.sdu.mmmi.cbse.collisionsystem;
 
+import dk.sdu.mmmi.cbse.common.data.EventManager;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
+import dk.sdu.mmmi.cbse.common.events.CollisionEvent;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
@@ -11,6 +13,8 @@ public class CollisionController implements IPostEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
+
+
         // CHECK ENTITY COLLISION
         for (Entity entity : world.getEntities()){
             for (Entity entity2 : world.getEntities()){
@@ -18,12 +22,12 @@ public class CollisionController implements IPostEntityProcessingService {
                     if (entity.getID().equals(entity2.getID()) || entity.getClass().equals(entity2.getClass())){
                         continue;
                     }
-
-                    LifePart lifePart1 = entity.getPart(LifePart.class);
+                    gameData.getEventManager().addEvent(new CollisionEvent(entity, entity2));
+/*                    LifePart lifePart1 = entity.getPart(LifePart.class);
                     LifePart lifePart2 = entity2.getPart(LifePart.class);
 
                     if (!(lifePart1 == null)) lifePart1.setIsHit(true);
-                    if (!(lifePart2 == null)) lifePart2.setIsHit((true));
+                    if (!(lifePart2 == null)) lifePart2.setIsHit((true));*/
 
                 }
             }

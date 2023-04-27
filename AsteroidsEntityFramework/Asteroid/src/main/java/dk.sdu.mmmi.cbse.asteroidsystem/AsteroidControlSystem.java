@@ -1,6 +1,7 @@
 package dk.sdu.mmmi.cbse.asteroidsystem;
 
 import dk.sdu.mmmi.cbse.common.data.Entity;
+import dk.sdu.mmmi.cbse.common.data.Event;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
@@ -8,10 +9,11 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.entities.Asteroid;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.services.IEventListener;
 
 import java.util.Random;
 
-public class AsteroidControlSystem implements IEntityProcessingService {
+public class AsteroidControlSystem implements IEntityProcessingService, IEventListener {
 
     @Override
     public void process(GameData gameData, World world) {
@@ -84,5 +86,10 @@ public class AsteroidControlSystem implements IEntityProcessingService {
 
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
+    }
+
+    @Override
+    public void onEvent(Event event, GameData gameData, World world) {
+        System.out.println(event);
     }
 }

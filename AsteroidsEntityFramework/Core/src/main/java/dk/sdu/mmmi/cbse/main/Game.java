@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.EventManager;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.services.IEventListener;
 import dk.sdu.mmmi.cbse.common.services.IGamePluginService;
 import dk.sdu.mmmi.cbse.common.services.IPostEntityProcessingService;
 import dk.sdu.mmmi.cbse.managers.GameInputProcessor;
@@ -26,6 +28,8 @@ public class Game
 
     private final GameData gameData = new GameData();
 
+    private EventManager eventManager = EventManager.getInstance();
+
     private final List<IGamePluginService> gamePluginServices;
     private final List<IEntityProcessingService> entityProcessors;
     private final List<IPostEntityProcessingService> postEntityProcessors;
@@ -33,10 +37,15 @@ public class Game
 
 
 
-    public Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessors, List<IPostEntityProcessingService> postEntityProcessors) {
+    public Game(List<IGamePluginService> gamePluginServices, List<IEntityProcessingService> entityProcessors, List<IPostEntityProcessingService> postEntityProcessors, List<IEventListener> eventListeners) {
         this.gamePluginServices = gamePluginServices;
         this.entityProcessors = entityProcessors;
         this.postEntityProcessors = postEntityProcessors;
+        this.eventManager.addListeners(eventListeners);
+        for (IEventListener eventListener: eventListeners) {
+            System.out.println("found eventListener for: " + eventListener.getClass());
+        }
+
     }
 
     @Override
@@ -56,7 +65,7 @@ public class Game
         );
 
         // Lookup all Game Plugins using ServiceLoader
-        for (IGamePluginService iGamePlugin : getPluginServices()) {
+        for (IGamePluginService iGamePlugin : gamePluginServices) {
             iGamePlugin.start(gameData, world);
         }
 
@@ -81,11 +90,13 @@ public class Game
         // Update
         //gameData.incrementGameTime();
 
-        for (IEntityProcessingService entityProcessorService : getEntityProcessingServices()) {
+        for (IEntityProcessingService entityProcessorService : entityProcessors) {
             entityProcessorService.process(gameData, world);
         }
 
-        for (IPostEntityProcessingService postEntityProcessingService : getPostEntityProcessingServices()) {
+        eventManager.dispatchEvents(gameData, world);
+
+        for (IPostEntityProcessingService postEntityProcessingService : postEntityProcessors) {
             postEntityProcessingService.process(gameData, world);
         }
     }
@@ -127,16 +138,7 @@ public class Game
     public void dispose() {
     }
 
-
-    private Collection<? extends IGamePluginService> getPluginServices() {
-        return ServiceLoader.load(IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-    }
-
-    private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
-        return ServiceLoader.load(IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-    }
-
-    private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
-        return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+    private List<IEventListener> getEventListeners() {
+        return ServiceLoader.load(IEventListener.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }

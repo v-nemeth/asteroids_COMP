@@ -59,4 +59,9 @@ public class Entity implements Serializable {
     public void setShapeY(float[] shapeY) {this.shapeY = shapeY;}
     public float[] getColor(){return this.color;}
     public void setColor(float[] color){this.color = color;}
+
+    @Override
+    public String toString(){
+        return "Entity: " + ID;
+    }
 }

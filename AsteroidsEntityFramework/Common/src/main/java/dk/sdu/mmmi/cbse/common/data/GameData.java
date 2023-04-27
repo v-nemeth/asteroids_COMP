@@ -1,8 +1,5 @@
 package dk.sdu.mmmi.cbse.common.data;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameData {
 
@@ -45,5 +42,9 @@ public class GameData {
     }
     public void incrementGameTime(){
         gameTime++;
+    }
+
+    public EventManager getEventManager(){
+        return EventManager.getInstance();
     }
 }
