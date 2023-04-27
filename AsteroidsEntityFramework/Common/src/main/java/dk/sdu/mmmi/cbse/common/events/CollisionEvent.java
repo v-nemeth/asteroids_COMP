@@ -9,20 +9,20 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CollisionEvent extends Event {
-    private String entity1ID;
-    private String entity2ID;
+    private String source;
+    private String target;
 
     public CollisionEvent(String entity1ID, String entity2ID) {
         this.eventType = EventType.COLLISION;
-        this.entity1ID = entity1ID;
-        this.entity2ID = entity2ID;
+        this.source = entity1ID;
+        this.target = entity2ID;
     }
 
     public String getEntityID() {
-        return entity1ID;
+        return source;
     }
 
     public String getTargetID(){
-        return entity2ID;
+        return target;
     }
 }

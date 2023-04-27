@@ -15,6 +15,8 @@ public class CollisionController implements IPostEntityProcessingService {
     public void process(GameData gameData, World world) {
         for (Entity entity : world.getEntities()){
             for (Entity entity2 : world.getEntities()){
+                if (entity.getID().equals(entity2.getID()) || entity.getClass().equals(entity2.getClass())){continue;}
+
                 if (collides(entity, entity2)){
                     gameData.getEventManager().addEvent(new CollisionEvent(entity.getID(), entity2.getID()));
                 }
@@ -23,9 +25,6 @@ public class CollisionController implements IPostEntityProcessingService {
     }
 
     public Boolean collides(Entity entity, Entity entity2){
-        if (entity.getID().equals(entity2.getID()) || entity.getClass().equals(entity2.getClass())){
-            return false;
-        }
         PositionPart entMov = entity.getPart(PositionPart.class);
         PositionPart entMov2 = entity2.getPart(PositionPart.class);
         float dx = (float) entMov.getX() - (float) entMov2.getX();

@@ -1,18 +1,19 @@
 package dk.sdu.mmmi.cbse.playersystem;
 
+import dk.sdu.mmmi.cbse.common.data.*;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
+import dk.sdu.mmmi.cbse.common.entities.Bullet;
 import dk.sdu.mmmi.cbse.common.entities.Player;
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
+import dk.sdu.mmmi.cbse.common.events.CollisionEvent;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.services.IEventListener;
 
 import static dk.sdu.mmmi.cbse.common.data.GameKeys.*;
 
-public class PlayerControlSystem implements IEntityProcessingService {
+public class PlayerControlSystem implements IEntityProcessingService, IEventListener {
 
     @Override
     public void process(GameData gameData, World world) {
@@ -65,4 +66,16 @@ public class PlayerControlSystem implements IEntityProcessingService {
         entity.setShapeY(shapey);
     }
 
+    @Override
+    public void onEvent(Event event, GameData gameData, World world) {
+        if(event.getEventType() == EventType.COLLISION){
+            String entityID = ((CollisionEvent) event).getEntityID();
+
+            boolean isPlayer = world.getEntity(entityID) instanceof Player;
+
+            if(isPlayer) {
+                world.removeEntity(entityID);
+            }
+        }
+    }
 }

@@ -32,7 +32,7 @@ public class CollisionControllerTest {
         entity2.setRadius(10);
     }
 
-/*    @Test
+    @Test
     public void Collision() {
         entityPositionPart.setPosition(0,0);
         entity2PositionPart.setPosition(0,0);
@@ -40,7 +40,7 @@ public class CollisionControllerTest {
         Boolean expResult = true;
         Boolean result = instance.collides(entity, entity2);
         assertEquals(expResult, result);
-    }*/
+    }
 
     @Test
     public void NoCollision() {
