@@ -1,16 +1,17 @@
 package dk.sdu.mmmi.cbse.bulletsystem;
 
+import dk.sdu.mmmi.cbse.common.data.*;
+import dk.sdu.mmmi.cbse.common.entities.Asteroid;
 import dk.sdu.mmmi.cbse.common.entities.Bullet;
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
+import dk.sdu.mmmi.cbse.common.events.CollisionEvent;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
+import dk.sdu.mmmi.cbse.common.services.IEventListener;
 
-public class BulletControlSystem implements IEntityProcessingService {
+public class BulletControlSystem implements IEntityProcessingService, IEventListener {
 
     @Override
     public void process(GameData gameData, World world) {
@@ -92,4 +93,16 @@ public class BulletControlSystem implements IEntityProcessingService {
         return bullet;
     }
 
+    @Override
+    public void onEvent(Event event, GameData gameData, World world) {
+        if(event.getEventType() == EventType.COLLISION){
+            String entityID = ((CollisionEvent) event).getEntityID();
+
+            boolean isBullet = world.getEntity(entityID) instanceof Bullet;
+
+            if(isBullet) {
+                world.removeEntity(entityID);
+            }
+        }
+    }
 }
