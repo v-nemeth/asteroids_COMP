@@ -20,7 +20,6 @@ public class AsteroidControlSystem implements IEntityProcessingService, IEventLi
 
             PositionPart positionPart = asteroid.getPart(PositionPart.class);
             MovingPart movingPart = asteroid.getPart(MovingPart.class);
-            LifePart lifePart = asteroid.getPart(LifePart.class);
 
             movingPart.setUp(true);
             movingPart.process(gameData, asteroid);
@@ -28,22 +27,6 @@ public class AsteroidControlSystem implements IEntityProcessingService, IEventLi
             updateShape(asteroid);
         }
     }
-
-    private Entity createSmallerAsteroid(int size, float x, float y, int life) {
-        float deacceleration = 10;
-        float acceleration = 25;
-        float maxSpeed = 50;
-        float rotationSpeed = 5;
-
-        Entity asteroid = new Asteroid(size);
-        asteroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
-        Random rand = new Random();
-        asteroid.add(new PositionPart(x, y, rand.nextFloat(2*3.1415f)));
-        asteroid.add(new LifePart(life));
-
-        return asteroid;
-    }
-
 
     private void updateShape(Entity entity) {
         float[] shapex = entity.getShapeX();
@@ -77,11 +60,17 @@ public class AsteroidControlSystem implements IEntityProcessingService, IEventLi
 
             if(asteroid != null){processCollision(asteroid, world);}
         }
-
+    }
+    private Asteroid getAsteroid(CollisionEvent event, World world){
+        if(world.getEntity(event.getEntityID()) instanceof Asteroid){
+            return (Asteroid) world.getEntity(event.getEntityID());
+        }
+        return null;
     }
 
     private void processCollision(Asteroid asteroid, World world){
         LifePart lifePart = asteroid.getPart(LifePart.class);
+        lifePart.setLife(lifePart.getLife() - 1);
         PositionPart positionPart = asteroid.getPart(PositionPart.class);
 
         if(lifePart.isDead()){
@@ -97,12 +86,18 @@ public class AsteroidControlSystem implements IEntityProcessingService, IEventLi
         world.addEntity(createSmallerAsteroid(size, x, y, life));
     }
 
-    private Asteroid getAsteroid(CollisionEvent event, World world){
-        for (String id: event.getEntityIDs()) {
-            if(world.getEntity(id) instanceof Asteroid){
-                return (Asteroid) world.getEntity(id);
-            }
-        }
-        return null;
+    private Entity createSmallerAsteroid(int size, float x, float y, int life) {
+        float deacceleration = 10;
+        float acceleration = 25;
+        float maxSpeed = 50;
+        float rotationSpeed = 5;
+
+        Entity asteroid = new Asteroid(size);
+        asteroid.add(new MovingPart(deacceleration, acceleration, maxSpeed, rotationSpeed));
+        Random rand = new Random();
+        asteroid.add(new PositionPart(x, y, rand.nextFloat(2*3.1415f)));
+        asteroid.add(new LifePart(life));
+
+        return asteroid;
     }
 }

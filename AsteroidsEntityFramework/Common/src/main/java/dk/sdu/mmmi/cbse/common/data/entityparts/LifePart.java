@@ -27,6 +27,9 @@ public class LifePart implements EntityPart {
 
     public void setLife(int life) {
         this.life = life;
+        if (life <= 0){
+            dead = true;
+        }
     }
 
     public boolean isIsHit() {

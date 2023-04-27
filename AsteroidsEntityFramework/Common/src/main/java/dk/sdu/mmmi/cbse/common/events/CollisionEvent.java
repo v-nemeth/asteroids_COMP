@@ -18,7 +18,11 @@ public class CollisionEvent extends Event {
         this.entity2ID = entity2ID;
     }
 
-    public List<String> getEntityIDs() {
-        return new ArrayList<>(Arrays.asList(entity1ID, entity2ID));
+    public String getEntityID() {
+        return entity1ID;
+    }
+
+    public String getTargetID(){
+        return entity2ID;
     }
 }
