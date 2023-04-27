@@ -4,18 +4,21 @@ import dk.sdu.mmmi.cbse.common.data.Entity;
 import dk.sdu.mmmi.cbse.common.data.Event;
 import dk.sdu.mmmi.cbse.common.data.EventType;
 
-public class CollisionEvent extends Event {
-    private Entity entity1;
-    private Entity entity2;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-    public CollisionEvent(Entity entity1, Entity entity2) {
+public class CollisionEvent extends Event {
+    private String entity1ID;
+    private String entity2ID;
+
+    public CollisionEvent(String entity1ID, String entity2ID) {
         this.eventType = EventType.COLLISION;
-        this.entity1 = entity1;
-        this.entity2 = entity2;
+        this.entity1ID = entity1ID;
+        this.entity2ID = entity2ID;
     }
 
-    @Override
-    public String toString() {
-        return "CollisionEvent{" + "entity1=" + entity1 + ", entity2=" + entity2 + '}';
+    public List<String> getEntityIDs() {
+        return new ArrayList<>(Arrays.asList(entity1ID, entity2ID));
     }
 }

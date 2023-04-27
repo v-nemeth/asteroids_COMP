@@ -1,13 +1,11 @@
 package dk.sdu.mmmi.cbse.asteroidsystem;
 
-import dk.sdu.mmmi.cbse.common.data.Entity;
-import dk.sdu.mmmi.cbse.common.data.Event;
-import dk.sdu.mmmi.cbse.common.data.GameData;
-import dk.sdu.mmmi.cbse.common.data.World;
+import dk.sdu.mmmi.cbse.common.data.*;
 import dk.sdu.mmmi.cbse.common.data.entityparts.LifePart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.entities.Asteroid;
+import dk.sdu.mmmi.cbse.common.events.CollisionEvent;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
 import dk.sdu.mmmi.cbse.common.services.IEventListener;
 
@@ -28,22 +26,6 @@ public class AsteroidControlSystem implements IEntityProcessingService, IEventLi
             movingPart.process(gameData, asteroid);
             positionPart.process(gameData, asteroid);
             updateShape(asteroid);
-
-            if(lifePart.isIsHit()){
-                if(lifePart.isDead()){
-                    world.removeEntity(asteroid);
-                } else {
-                    int size = (int) Math.floor(((Asteroid)asteroid).getSize() * 3/5);
-                    float x = positionPart.getX();
-                    float y = positionPart.getY();
-                    int life = lifePart.getLife()-1;
-                    world.addEntity(createSmallerAsteroid(size, x, y, life));
-                    world.addEntity(createSmallerAsteroid(size, x, y, life));
-                    world.removeEntity(asteroid);
-                }
-            }
-            lifePart.process(gameData,asteroid);
-
         }
     }
 
@@ -90,6 +72,37 @@ public class AsteroidControlSystem implements IEntityProcessingService, IEventLi
 
     @Override
     public void onEvent(Event event, GameData gameData, World world) {
-        System.out.println(event);
+        if(event.getEventType() == EventType.COLLISION){
+            Asteroid asteroid = getAsteroid((CollisionEvent) event, world);
+
+            if(asteroid != null){processCollision(asteroid, world);}
+        }
+
+    }
+
+    private void processCollision(Asteroid asteroid, World world){
+        LifePart lifePart = asteroid.getPart(LifePart.class);
+        PositionPart positionPart = asteroid.getPart(PositionPart.class);
+
+        if(lifePart.isDead()){
+            world.removeEntity(asteroid);
+        } else {
+            createNewAsteroids(world, positionPart.getX(), positionPart.getY(), lifePart.getLife(), (int) Math.floor(((Asteroid)asteroid).getSize() * 3/5));
+            world.removeEntity(asteroid);
+        }
+    }
+
+    private void createNewAsteroids(World world, float x, float y, int life, int size){
+        world.addEntity(createSmallerAsteroid(size, x, y, life));
+        world.addEntity(createSmallerAsteroid(size, x, y, life));
+    }
+
+    private Asteroid getAsteroid(CollisionEvent event, World world){
+        for (String id: event.getEntityIDs()) {
+            if(world.getEntity(id) instanceof Asteroid){
+                return (Asteroid) world.getEntity(id);
+            }
+        }
+        return null;
     }
 }

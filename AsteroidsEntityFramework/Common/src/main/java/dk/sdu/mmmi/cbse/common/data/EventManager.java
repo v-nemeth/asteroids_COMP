@@ -40,6 +40,7 @@ public class EventManager {
             Event event = eventQueue.poll();
             for (IEventListener listener : listeners) {
                 listener.onEvent(event, gameData, world);
+                System.out.println(event +" to " + listener);
             }
         }
     }
