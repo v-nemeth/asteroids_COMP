@@ -14,6 +14,8 @@
         <module>Asteroid</module>
         <module>Bullet</module>
         <module>CollisionController</module>
+        <module>CommonCollisionHandler</module>
+        <module>AsteroidCollisionHandler</module>
     </modules>
     <properties>
         <java>java</java>

@@ -13,7 +13,7 @@ import dk.sdu.mmmi.cbse.common.services.IEventListener;
 
 import static dk.sdu.mmmi.cbse.common.data.GameKeys.*;
 
-public class PlayerControlSystem implements IEntityProcessingService, IEventListener {
+public class PlayerControlSystem implements IEntityProcessingService{
 
     @Override
     public void process(GameData gameData, World world) {
@@ -64,18 +64,5 @@ public class PlayerControlSystem implements IEntityProcessingService, IEventList
 
         entity.setShapeX(shapex);
         entity.setShapeY(shapey);
-    }
-
-    @Override
-    public void onEvent(Event event, GameData gameData, World world) {
-        if(event.getEventType() == EventType.COLLISION){
-            String entityID = ((CollisionEvent) event).getEntityID();
-
-            boolean isPlayer = world.getEntity(entityID) instanceof Player;
-
-            if(isPlayer) {
-                world.removeEntity(entityID);
-            }
-        }
     }
 }
