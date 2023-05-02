@@ -9,9 +9,8 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.ShootingPart;
 import dk.sdu.mmmi.cbse.common.events.CollisionEvent;
 import dk.sdu.mmmi.cbse.common.services.IEntityProcessingService;
-import dk.sdu.mmmi.cbse.common.services.IEventListener;
 
-public class BulletControlSystem implements IEntityProcessingService, IEventListener {
+public class BulletControlSystem implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
@@ -91,18 +90,5 @@ public class BulletControlSystem implements IEntityProcessingService, IEventList
         bullet.add(new LifePart(0));
 
         return bullet;
-    }
-
-    @Override
-    public void onEvent(Event event, GameData gameData, World world) {
-        if(event.getEventType() == EventType.COLLISION){
-            String entityID = ((CollisionEvent) event).getEntityID();
-
-            boolean isBullet = world.getEntity(entityID) instanceof Bullet;
-
-            if(isBullet) {
-                world.removeEntity(entityID);
-            }
-        }
     }
 }
