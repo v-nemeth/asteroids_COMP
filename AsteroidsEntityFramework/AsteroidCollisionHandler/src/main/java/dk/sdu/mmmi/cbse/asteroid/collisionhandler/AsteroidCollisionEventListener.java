@@ -6,6 +6,8 @@ import dk.sdu.mmmi.cbse.common.data.entityparts.MovingPart;
 import dk.sdu.mmmi.cbse.common.data.entityparts.PositionPart;
 import dk.sdu.mmmi.cbse.common.entities.Asteroid;
 import dk.sdu.mmmi.cbse.common.events.CollisionEvent;
+import dk.sdu.mmmi.cbse.common.events.Event;
+import dk.sdu.mmmi.cbse.common.events.EventType;
 import dk.sdu.mmmi.cbse.common.services.IEventListener;
 
 import java.util.Random;

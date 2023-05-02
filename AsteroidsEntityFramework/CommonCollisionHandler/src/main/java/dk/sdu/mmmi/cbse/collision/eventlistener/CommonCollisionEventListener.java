@@ -1,7 +1,7 @@
 package dk.sdu.mmmi.cbse.collision.eventlistener;
 
-import dk.sdu.mmmi.cbse.common.data.Event;
-import dk.sdu.mmmi.cbse.common.data.EventType;
+import dk.sdu.mmmi.cbse.common.events.Event;
+import dk.sdu.mmmi.cbse.common.events.EventType;
 import dk.sdu.mmmi.cbse.common.data.GameData;
 import dk.sdu.mmmi.cbse.common.data.World;
 import dk.sdu.mmmi.cbse.common.entities.Bullet;

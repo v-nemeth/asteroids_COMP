@@ -1,5 +1,6 @@
 package dk.sdu.mmmi.cbse.common.data;
 
+import dk.sdu.mmmi.cbse.common.events.Event;
 import dk.sdu.mmmi.cbse.common.services.IEventListener;
 
 import java.util.LinkedList;

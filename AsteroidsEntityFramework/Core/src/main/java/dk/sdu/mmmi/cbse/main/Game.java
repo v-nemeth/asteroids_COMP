@@ -20,8 +20,7 @@ import java.util.ServiceLoader;
 
 import static java.util.stream.Collectors.toList;
 
-public class Game
-        implements ApplicationListener {
+public class Game implements ApplicationListener {
 
     private static OrthographicCamera cam;
     private ShapeRenderer sr;
@@ -72,6 +71,11 @@ public class Game
     }
 
     @Override
+    public void resize(int i, int i1) {
+
+    }
+
+    @Override
     public void render() {
         // clear screen to black
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -86,6 +90,21 @@ public class Game
         gameData.getKeys().update();
     }
 
+    @Override
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
     private void update() {
         // Update
         //gameData.incrementGameTime();
@@ -94,11 +113,11 @@ public class Game
             entityProcessorService.process(gameData, world);
         }
 
-        eventManager.dispatchEvents(gameData, world);
-
         for (IPostEntityProcessingService postEntityProcessingService : postEntityProcessors) {
             postEntityProcessingService.process(gameData, world);
         }
+
+        eventManager.dispatchEvents(gameData, world);
     }
 
     private void draw() {
@@ -120,25 +139,5 @@ public class Game
 
             sr.end();
         }
-    }
-
-    @Override
-    public void resize(int width, int height) {
-    }
-
-    @Override
-    public void pause() {
-    }
-
-    @Override
-    public void resume() {
-    }
-
-    @Override
-    public void dispose() {
-    }
-
-    private List<IEventListener> getEventListeners() {
-        return ServiceLoader.load(IEventListener.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 }
